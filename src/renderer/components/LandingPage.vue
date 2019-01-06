@@ -1,128 +1,146 @@
 <template>
-  <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
-    <main>
-      <div class="left-side">
-        <span class="title">
-          Welcome to your new project!
-        </span>
-        <system-information></system-information>
-      </div>
+    <div class="wrapper" id="wrapper">
+        <div class="output">
+            <span class="num">{{num}}</span>
+        </div>
+        <div id="input" class="input">
+            <div class="line1 line">
+                <div class="btn">AC</div>
+                <div class="btn">+/-</div>
+                <div class="btn">%</div>
+                <div class="btn">÷</div>
+            </div>
+            <div class="line2 line">
+                <div class="btn">7</div>
+                <div class="btn">8</div>
+                <div class="btn">9</div>
+                <div class="btn">×</div>
+            </div>
+            <div class="line3 line">
+                <div class="btn">4</div>
+                <div class="btn">5</div>
+                <div class="btn">6</div>
+                <div class="btn">-</div>
+            </div>
+            <div class="line4 line">
+                <div class="btn">1</div>
+                <div class="btn">2</div>
+                <div class="btn">3</div>
+                <div class="btn">+</div>
+            </div>
+            <div class="line5 line">
+                <div class="btn">0</div>
+                <div class="btn">.</div>
+                <div class="btn">=</div>
+            </div>
+        </div>
 
-      <div class="right-side">
-        <div class="doc">
-          <div class="title">Getting Started</div>
-          <p>
-            electron-vue comes packed with detailed documentation that covers everything from
-            internal configurations, using the project structure, building your application,
-            and so much more.
-          </p>
-          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
-        </div>
-        <div class="doc">
-          <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
-        </div>
-      </div>
-    </main>
-  </div>
+    </div>
 </template>
 
 <script>
-  import SystemInformation from './LandingPage/SystemInformation'
+    import SystemInformation from './LandingPage/SystemInformation'
 
-  export default {
-    name: 'landing-page',
-    components: { SystemInformation },
-    methods: {
-      open (link) {
-        this.$electron.shell.openExternal(link)
-      }
+    export default {
+        name: 'landing-page',
+        components: {SystemInformation},
+        data() {
+            return {
+                num: 0
+            }
+        },
+        mounted(){
+            input.addEventListener('click',function (x) {
+                console.log(x.target.innerText)
+            })
+        },
+        methods: {
+            open(link) {
+                this.$electron.shell.openExternal(link)
+            }
+        }
     }
-  }
 </script>
 
-<style>
-  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+<style lang="scss">
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+    .wrapper {
+        display: flex;
+        flex-direction: column;
 
-  body { font-family: 'Source Sans Pro', sans-serif; }
+        .output {
+            height: 64px;
+            background-color: #535457;
+            color: #fff;
+            position: relative;
 
-  #wrapper {
-    background:
-      radial-gradient(
-        ellipse at top left,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(229, 229, 229, .9) 100%
-      );
-    height: 100vh;
-    padding: 60px 80px;
-    width: 100vw;
-  }
+            .num {
+                position: absolute;
+                bottom: 0;
+                right: 20px;
+                font-size: 38px;
+            }
+        }
 
-  #logo {
-    height: auto;
-    margin-bottom: 20px;
-    width: 420px;
-  }
+        .input {
+            .line {
+                display: flex;
+                width: 100%;
+                align-items: center;
 
-  main {
-    display: flex;
-    justify-content: space-between;
-  }
+                .btn {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 48px;
+                    font-size: 18px;
+                    border-top: 1px solid #5B5C60;
+                    border-left: 1px solid #5B5C60;
+                    width: 25%;
+                    color: #fff;
+                    background-color: #868789;
+                    &:active{
+                        background-color: #b0b0b1;
+                    }
 
-  main > div { flex-basis: 50%; }
+                    &:last-child {
+                        border-right: 1px solid #5B5C60;
+                        background-color: #FF9F0A;
 
-  .left-side {
-    display: flex;
-    flex-direction: column;
-  }
+                        &:active {
+                            background-color: #c47208;
+                        }
+                    }
+                }
 
-  .welcome {
-    color: #555;
-    font-size: 23px;
-    margin-bottom: 10px;
-  }
+            }
 
-  .title {
-    color: #2c3e50;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
+            .line1 {
+                .btn {
+                    background-color: #6C6D6F;
 
-  .title.alt {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
+                    &:active {
+                        background-color: #868789;
+                    }
+                }
 
-  .doc p {
-    color: black;
-    margin-bottom: 10px;
-  }
+            }
 
-  .doc button {
-    font-size: .8em;
-    cursor: pointer;
-    outline: none;
-    padding: 0.75em 2em;
-    border-radius: 2em;
-    display: inline-block;
-    color: #fff;
-    background-color: #4fc08d;
-    transition: all 0.15s ease;
-    box-sizing: border-box;
-    border: 1px solid #4fc08d;
-  }
+            .line5 {
+                .btn {
+                    &:first-child {
+                        width: 50%;
+                    }
 
-  .doc button.alt {
-    color: #42b983;
-    background-color: transparent;
-  }
+                    border-bottom: 1px solid #303747;
+                }
+            }
+        }
+    }
+
 </style>
