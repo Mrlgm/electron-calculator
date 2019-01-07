@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <landing-page></landing-page>
+    <calculator-wrapper></calculator-wrapper>
   </div>
 </template>
 
 <script>
-  import LandingPage from '@/components/LandingPage'
+  import CalculatorWrapper from './components/CalculatorWrapper'
 
   export default {
     name: 'calculator',
     components: {
-      LandingPage
+      CalculatorWrapper
     }
   }
 </script>
